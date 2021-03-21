@@ -13,8 +13,8 @@ class AppBarCustom extends StatelessWidget {
           return onTap ?? Navigator.of(context).pop();
         },
         child: Container(
-          width: 20,
-          height: 20,
+          width: 30,
+          height: 30,
           child: Image.asset(
             'assets/images/back_button.png',
             width: 12,

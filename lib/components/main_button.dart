@@ -5,6 +5,7 @@ class MainButton extends StatelessWidget {
   final String? text;
   final Color? color;
   final Color? txtColor;
+  final double? txtSize;
   final double? width;
   final double? height;
   const MainButton(
@@ -13,6 +14,7 @@ class MainButton extends StatelessWidget {
       @required this.text,
       this.color,
       this.txtColor,
+      this.txtSize,
       this.height,
       this.width})
       : super(key: key);
@@ -36,7 +38,7 @@ class MainButton extends StatelessWidget {
             style: TextStyle(
               color: txtColor ?? Colors.black,
               fontWeight: FontWeight.w900,
-              fontSize: 13,
+              fontSize: txtSize ?? 13,
             ),
           ),
         ),

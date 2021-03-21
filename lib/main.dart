@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todos/views/login_screen/login_screen.dart';
 import 'package:todos/views/register_screen/register_screen.dart';
+import 'package:todos/views/todo_list_screen/todo_list_screen.dart';
 
 import 'views/logged_out_screen/logged_out_screen.dart';
 
@@ -17,11 +18,12 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+      initialRoute: '/todoListScreen',
       routes: {
         '/': (context) => LoggedOutScreen(),
         '/registerScreen': (context) => RegisterScreen(),
         '/loginScreen': (context) => LoginScreen(),
+        '/todoListScreen': (context) => TodoListScreen(),
       },
     );
   }
