@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:todos/components/main_button.dart';
 
 class LoggedOutScreen extends StatefulWidget {
@@ -37,7 +38,7 @@ class _LoggedOutScreenState extends State<LoggedOutScreen> {
             children: [
               Expanded(
                 child: MainButton(
-                  onTap: () => Navigator.pushNamed(context, '/loginScreen'),
+                  onTap: () => Get.toNamed('/loginScreen'),
                   text: "LOG IN",
                 ),
               ),
@@ -46,7 +47,7 @@ class _LoggedOutScreenState extends State<LoggedOutScreen> {
               ),
               Expanded(
                 child: MainButton(
-                  onTap: () => Navigator.pushNamed(context, '/registerScreen'),
+                  onTap: () => Get.toNamed('/registerScreen'),
                   text: "REGISTER",
                   color: Colors.black,
                   txtColor: Colors.white,

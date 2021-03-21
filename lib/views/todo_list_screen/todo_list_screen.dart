@@ -1,5 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+
+import 'package:get/get.dart';
 import 'package:todos/components/components.dart';
+import 'package:todos/controllers/todo_list_controller.dart';
+import 'package:todos/models/task.dart';
 
 class TodoListScreen extends StatefulWidget {
   @override
@@ -8,8 +13,11 @@ class TodoListScreen extends StatefulWidget {
 
 class _TodoListScreenState extends State<TodoListScreen> {
   final myTxtStyle = TextStyle(fontSize: 13, fontWeight: FontWeight.w900);
+  TextEditingController _txtCtrl = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
+    final TodoListController _ctrl = Get.put(TodoListController())!;
     return SafeArea(
       child: Scaffold(
         body: Container(
@@ -36,6 +44,10 @@ class _TodoListScreenState extends State<TodoListScreen> {
                       flex: 3,
                       child: InputFormCustom(
                         hintText: "My awesome task",
+                        ctrl: _txtCtrl,
+                        onChanged: (txt) {
+                          _ctrl.fieldNameTask = txt;
+                        },
                       ),
                     ),
                     SizedBox(
@@ -43,7 +55,9 @@ class _TodoListScreenState extends State<TodoListScreen> {
                     ),
                     Expanded(
                       child: MainButton(
-                        onTap: () {},
+                        onTap: () {
+                          _ctrl.addTask();
+                        },
                         text: '+',
                         txtSize: 36,
                         width: 62,
@@ -56,11 +70,19 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   height: 39,
                 ),
                 Text("TASKS", style: myTxtStyle),
-                CheckboxTxt(
-                  value: true,
-                  txt: "Task 1",
-                  onChanged: () {},
-                ),
+                Obx(() => ListView.builder(
+                    itemCount: _ctrl.tasks.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) {
+                      return CheckboxTxt(
+                        value: _ctrl.tasks[index].ativo,
+                        txt: _ctrl.tasks[index].nome,
+                        onChanged: () {
+                          _ctrl.addTaskToDone(_ctrl.tasks[index]);
+                        },
+                      );
+                    })),
                 CheckboxTxt(
                   value: true,
                   txt: "Task 2",
@@ -70,11 +92,19 @@ class _TodoListScreenState extends State<TodoListScreen> {
                   height: 165,
                 ),
                 Text("DONE", style: myTxtStyle),
-                CheckboxTxt(
-                  value: true,
-                  txt: "Task 5",
-                  onChanged: () {},
-                ),
+                Obx(() => ListView.builder(
+                    itemCount: _ctrl.tasksDone.length,
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemBuilder: (_, index) {
+                      return CheckboxTxt(
+                        value: _ctrl.tasksDone[index].ativo,
+                        txt: _ctrl.tasksDone[index].nome,
+                        onChanged: () {
+                          _ctrl.addTaskToDone(_ctrl.tasksDone[index]);
+                        },
+                      );
+                    })),
               ],
             ),
           ),

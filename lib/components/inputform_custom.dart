@@ -3,13 +3,25 @@ import 'package:flutter/material.dart';
 
 class InputFormCustom extends StatelessWidget {
   final String? hintText;
+  final String? value;
+  final TextEditingController? ctrl;
+  final Function(String)? onChanged;
+  const InputFormCustom({
+    Key? key,
+    this.value,
+    this.onChanged,
+    this.ctrl,
+    @required this.hintText,
+  }) : super(key: key);
 
-  const InputFormCustom({Key? key, @required this.hintText}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    TextEditingController ctrl = new TextEditingController();
     return Container(
       child: TextFormField(
         style: TextStyle(color: Colors.black.withOpacity(0.88)),
+        onChanged: onChanged,
+        controller: ctrl,
         decoration: InputDecoration(
           hintText: hintText ?? "",
           hintStyle: TextStyle(height: 0, color: Colors.grey),
